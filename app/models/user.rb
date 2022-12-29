@@ -206,9 +206,19 @@ class User < ApplicationRecord
   
   end
 
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
 
   def User.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   private

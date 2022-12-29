@@ -7,24 +7,25 @@ class UserAuthenticationController < ApplicationController
   end
 
   def create_cookie
+
     user = User.where({ :email => params.fetch("query_email") }).first
-    
-    the_supplied_password = params.fetch("query_password")
-    
-    if user != nil
-      are_they_legit = user.authenticate(the_supplied_password)
-    
-      if are_they_legit == false
-        redirect_to("/user_sign_in", { :alert => "Incorrect password." })
-      else
-        session[:user_id] = user.id
-      
+        
+    if user && user.authenticate(params.fetch("query_password")) # if the user is successfully logged in
+      if user.activated? # successful login and the user's email is activated
+        reset_session
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        log_in user
         redirect_to("/")
-        #{ :notice => "Signed in successfully." })
+      else # if the user's account hasn't been activated yet
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:info] = message
+        redirect_to("/user_sign_in")
       end
-    else
-      redirect_to("/user_sign_in", { :alert => "No user with that email address." })
+    else # if the email/pass isn't correct
+      redirect_to("/user_sign_in", { :alert => "Invalid email/password." })
     end
+
   end
 
   def destroy_cookies
@@ -74,12 +75,10 @@ class UserAuthenticationController < ApplicationController
     @user.user_budgets_count = "0"
     @user.cash_flows_count = "0"
 
-    save_status = @user.save
-
-    if save_status == true
+    if @user.save
       session[:user_id] = @user.id
-      UserMailer.account_activation(@user).deliver_now
-      flash[:info] = "Please check your email to activate your account."
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account!"
       redirect_to("/user_sign_in")
       #, { :notice => "User account created successfully."})
     else
@@ -168,4 +167,17 @@ class UserAuthenticationController < ApplicationController
     #,{ :notice => "User account cancelled" })
   end
  
+  def edit
+    user = User.find_by(email: params[:email])
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
+      user.update_attribute(:activated,    true)
+      user.update_attribute(:activated_at, Time.zone.now)
+      log_in user
+      flash[:success] = "Account activated!"
+      redirect_to user
+    else
+      flash[:danger] = "Invalid activation link"
+      redirect_to root_url
+    end
+  end
 end
