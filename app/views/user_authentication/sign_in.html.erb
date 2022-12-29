@@ -36,32 +36,32 @@
 
     <section class="content-account">
 
-        <div class="content-account-container">
-            
-            <div class="logo-lg"></div>
-            <% flash.each do |message_type, message| %>
-            <div class="alert alert-<%= message_type %>"><%= message %></div>
-            <% end %> 
-            <form role="form" action="/user_verify_credentials" method="post">
-                <div class="well well-sm">
-                    <h2 class="font700 text-center">Login to Opto</h2>
-                    <div class="form-group">
-                        <label class="form-label" for="email_box">Email</label>
-                        <input type="email" class="form-control" id="email_box" name="query_email" placeholder="Enter your email..."/>
-                    </div>
+      <div class="content-account-container">
+          
+        <div class="logo-lg"></div>
+        <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %> 
+        <%= form_with(url: user_verify_credentials_path, scope: :session, local: true) do |f| %>
+          <div class="well well-sm">
+            <h2 class="font700 text-center">Login to Opto</h2>
+            <div class="form-group">
+              <%= f.label :email, class: 'form-label'%>
+              <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+            </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="password_box">Password</label>
-                        <input type="password" class="form-control" id="password_box" name="query_password" placeholder="Enter your password..."  />
-                    </div>
+            <div class="form-group">
+              <%= f.label :password, class: 'form-label' %>
+              <%= f.password_field :password, class: 'form-control mb-40', placeholder: 'Password' %>
+            </div>
 
-                    <input type="submit" class="btn btn-primary btn-block mb-40" value="Sign In" />
+            <%= f.submit "Log in", class: "btn btn-primary btn-block mb-25", placeholder: "Sign In" %>
 
-                    <p class="color-grey text-center small">Don't have an account yet? <a href="/user_sign_up">Register</a></p>
-                </div>
-            </form>
+            <p class="color-grey text-center small mt-10">Don't have an account yet? <%= link_to "Register", user_sign_up_path %> </p>
+            </div>
+        <% end %>
 
-        </div>
+      </div>
 
     </section>
     <!-- ./content-account-->

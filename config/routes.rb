@@ -358,13 +358,6 @@ Rails.application.routes.draw do
   # SIGN OUT        
   get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
 
-  # SIGN IN FORM
-  get    '/login', to: 'sessions#new'
-  # AUTH AND STORE COOKIE
-  post   '/login', to: 'sessions#create'
-  # SIGN OUT
-  delete '/logout', to: 'sessions#destroy'
-
 
   resources :account_activations, only: [:edit]
 end
