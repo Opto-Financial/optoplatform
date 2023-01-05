@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -8,24 +8,23 @@ class UserAuthenticationController < ApplicationController
 
   def create_cookie
 
-    user = User.where({ :email => params.fetch("query_email") }).first
-        
-    if user && user.authenticate(params.fetch("query_password")) # if the user is successfully logged in
-      if user.activated? # successful login and the user's email is activated
+    user = User.find_by(email: params[:session][:email].downcase)
+    
+    if user && user.authenticate(params[:session][:password])
+      if user.activated?
         reset_session
-        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         log_in user
         redirect_to("/")
-      else # if the user's account hasn't been activated yet
+      else
         message  = "Account not activated. "
         message += "Check your email for the activation link."
-        flash[:info] = message
+        flash[:warning] = message
         redirect_to("/user_sign_in")
       end
-    else # if the email/pass isn't correct
-      redirect_to("/user_sign_in", { :alert => "Invalid email/password." })
+    else
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'sign_in'
     end
-
   end
 
   def destroy_cookies
@@ -174,10 +173,29 @@ class UserAuthenticationController < ApplicationController
       user.update_attribute(:activated_at, Time.zone.now)
       log_in user
       flash[:success] = "Account activated!"
-      redirect_to user
+      redirect_to("/")
     else
       flash[:danger] = "Invalid activation link"
-      redirect_to root_url
+      redirect_to("/user_sign_up")
     end
   end
+
+  def log_in(user)
+    session[:user_id] = user.id
+ 
+  end
+
+  def current_user
+    if (user_id = session[:user_id])
+      user = User.find_by(id: user_id)
+      @current_user ||= user if session[:session_token] == user.session_token
+    elsif (user_id = cookies.encrypted[:user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(:remember, cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
+    end
+  end
+
 end
