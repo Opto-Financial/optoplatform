@@ -52,12 +52,12 @@
 
             <div class="form-group">
               <%= f.label :password, class: 'form-label' %>
-              <%= f.password_field :password, class: 'form-control mb-40', placeholder: 'Password' %>
+              <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
             </div>
 
-            <%= f.submit "Log in", class: "btn btn-primary btn-block mb-25", placeholder: "Sign In" %>
+            <%= f.submit "Log in", class: "btn btn-primary", placeholder: "Sign In" %>
 
-            <p class="color-grey text-center small mt-10">Don't have an account yet? <%= link_to "Register", user_sign_up_path %> </p>
+            <p class="color-grey text-center small">New User? <%= link_to "Register", user_sign_up_path %> </p>
             </div>
         <% end %>
 

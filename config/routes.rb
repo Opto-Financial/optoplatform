@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'test1/index'
+  get 'sessions/new'
   #------------------------------
 
   get("/", { :controller => "application", :action => "homepage" })
@@ -358,4 +360,5 @@ Rails.application.routes.draw do
   # SIGN OUT        
   get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
 
+  resources :user_authentication, only: [:edit]
 end

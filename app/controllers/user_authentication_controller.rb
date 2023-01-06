@@ -1,29 +1,29 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
   end
 
   def create_cookie
-    user = User.where({ :email => params.fetch("query_email") }).first
+
+    user = User.find_by(email: params[:session][:email].downcase)
     
-    the_supplied_password = params.fetch("query_password")
-    
-    if user != nil
-      are_they_legit = user.authenticate(the_supplied_password)
-    
-      if are_they_legit == false
-        redirect_to("/user_sign_in", { :alert => "Incorrect password." })
-      else
-        session[:user_id] = user.id
-      
+    if user && user.authenticate(params[:session][:password])
+      if user.activated?
+        reset_session
+        log_in user
         redirect_to("/")
-        #{ :notice => "Signed in successfully." })
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to("/user_sign_in")
       end
     else
-      redirect_to("/user_sign_in", { :alert => "No user with that email address." })
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'sign_in'
     end
   end
 
@@ -74,14 +74,11 @@ class UserAuthenticationController < ApplicationController
     @user.user_budgets_count = "0"
     @user.cash_flows_count = "0"
 
-    save_status = @user.save
-
-    if save_status == true
+    if @user.save
       session[:user_id] = @user.id
-      
-      #UserMailer.account_activation(@user).deliver_now         #need to figure out how to get this working
-
-      redirect_to("/home")
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account!"
+      redirect_to("/user_sign_in")
       #, { :notice => "User account created successfully."})
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
@@ -169,4 +166,36 @@ class UserAuthenticationController < ApplicationController
     #,{ :notice => "User account cancelled" })
   end
  
+  def edit
+    user = User.find_by(email: params[:email])
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
+      user.update_attribute(:activated,    true)
+      user.update_attribute(:activated_at, Time.zone.now)
+      log_in user
+      flash[:success] = "Account activated!"
+      redirect_to("/")
+    else
+      flash[:danger] = "Invalid activation link"
+      redirect_to("/user_sign_up")
+    end
+  end
+
+  def log_in(user)
+    session[:user_id] = user.id
+ 
+  end
+
+  def current_user
+    if (user_id = session[:user_id])
+      user = User.find_by(id: user_id)
+      @current_user ||= user if session[:session_token] == user.session_token
+    elsif (user_id = cookies.encrypted[:user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(:remember, cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
+    end
+  end
+
 end

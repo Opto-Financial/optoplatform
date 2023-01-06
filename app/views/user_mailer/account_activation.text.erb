@@ -1,7 +1,5 @@
-User#account_activation
+Hi <%= @user.first_name %>,
 
-<%= @greeting %>, find me in app/views/user_mailer/account_activation.text.erb
+Welcome to Opto! Click on the link below to activate your account:
 
-Hello <%= @user.first_name %>,
-
-Welcome to Opto! We will provide more information about your account later.
+<%= edit_user_authentication_url(@user.activation_token, email: @user.email) %>

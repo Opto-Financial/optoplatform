@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_234919) do
+ActiveRecord::Schema.define(version: 2022_12_14_055946) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "account_type"
@@ -245,6 +245,9 @@ ActiveRecord::Schema.define(version: 2022_11_19_234919) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_budgets_count"
     t.integer "cash_flows_count"
+    t.string "activation_digest"
+    t.boolean "activated"
+    t.datetime "activated_at"
   end
 
 end
