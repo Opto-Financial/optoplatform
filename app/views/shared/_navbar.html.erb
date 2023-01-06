@@ -4,114 +4,35 @@
 </head>
 
 <!--<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">-->
-
-<nav class="navbar navbar-expand-lg navbar-dark mb-4">
-
-  <div class="container">
-    
-    <!--<a href="/home" class="logo"></a>-->
-    <!--
-    <a class="navbar-brand" href="/home">
-      Opto
-    </a>-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
+<div class="d-flex justify-content-around align-items-center mx-0">
+  <div>
+    <a href="/home" class="logo"></a>
+  </div>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
-    <div class="collapse navbar-collapse" id="collapsible-nav-links">
-      <ul class="navbar-nav mr-auto">
-        <%if session.fetch(:user_id) == nil %>
-          <li class="nav-item">
-            <a class="nav-link" href="/home">Home <span class="visually-hidden"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/user_sign_in">Sign In <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/user_sign_up">Sign Up <span class="sr-only"></span></a>
-          </li>
-        <%else%>
-          <li class="nav-item">
-            <a class="nav-link" href="/home">Home</a>
-          </li>
-          <li class="nav-item">
-            <!-- <a class="nav-link" href="/budgeting-and-planning">Budgeting & Planning</a> -->
-            <a class="nav-link" href="/budget_expenses">Budgeting & Planning</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cash_flows">Cash Flow</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts">Accounts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/transactions">Transactions</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/edit_user_profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/user_sign_out">Sign Out</a>
-          </li>
-          <!--<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Resources
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
-              
-              <a href="/school_fees" class="dropdown-item">
-                School Fees
-              </a>
-              <a href="/school_events" class="dropdown-item">
-                School Events
-              </a>
-              <a href="/budget_incomes" class="dropdown-item">
-                Budget Incomes
-              </a>
-              <a href="/plaid_items" class="dropdown-item">
-                Plaid Items
-              </a>
-              <a href="/bank_accounts" class="dropdown-item">
-                Bank Accounts
-              </a>
-              <a href="/credit_cards" class="dropdown-item">
-                Credit Cards
-              </a>
-              
 
-            
-              <a href="/school_event_payments" class="dropdown-item">
-                School Event Payments
-              </a>
-              <a href="/spend_intentions" class="dropdown-item">
-                Spend Intentions
-              </a>
-              <a href="/loan_disbursements" class="dropdown-item">
-                Loan Disbursements
-              </a>
-              <a href="/loan_comparisons" class="dropdown-item">
-                Loan Comparisons
-              </a>
-              <a href="/current_loans" class="dropdown-item">
-                Current Loans
-              </a>
-              <a href="/transaction_categories" class="dropdown-item">
-                Transaction Categories
-              </a>
-              <a href="/accounts" class="dropdown-item">
-                Accounts
-              </a>
-              <a href="/budget_expenses" class="dropdown-item">
-                Budget Expenses
-              </a>
-              <a href="/student_loans" class="dropdown-item">
-                Student Loans
-              </a>
-            </div>
-          </li>-->
-        <%end%>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/budget_expenses">Budgeting & Planning</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cash_flows">Cash Flow</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts">Accounts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/transactions">Transactions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/edit_user_profile">Profile</a>
+        </li>
       </ul>
-    </div> <!-- .navbar-collapse -->
-  </div> <!-- .container -->
-</nav>
+
+    </div>
+  </nav>
+</div>
