@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'optofinancial@gmail.com'
+  default from: 'contact@optofinancial.com'
   layout 'mailer'
 end
