@@ -353,12 +353,13 @@ Rails.application.routes.draw do
   # ------------------------------
 
   # SIGN IN FORM
-  get("/user_sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
+  get '/user_sign_in', to: 'user_authentication#sign_in_form'
+
   # AUTHENTICATE AND STORE COOKIE
-  post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })
-  
-  # SIGN OUT        
-  get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
+  post '/user_verify_credentials', to: 'user_authentication#create_cookie'
+
+  # SIGN OUT
+  delete '/user_sign_out', to: 'user_authentication#destroy_cookies'
 
   get 'authenticate_email', to: 'user_authentication#edit'
 end

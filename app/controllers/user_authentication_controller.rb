@@ -13,6 +13,7 @@ class UserAuthenticationController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         reset_session
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         log_in user
         redirect_to("/")
       else
