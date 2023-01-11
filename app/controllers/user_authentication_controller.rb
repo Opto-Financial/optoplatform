@@ -168,6 +168,7 @@ class UserAuthenticationController < ApplicationController
   end
  
   def edit
+    logger.debug "Params: #{params.inspect}"
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.update_attribute(:activated,    true)
