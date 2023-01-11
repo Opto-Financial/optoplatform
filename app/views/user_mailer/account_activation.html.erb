@@ -7,4 +7,4 @@ Welcome to Opto! Click on the link below to activate your account:
 </p>
 
 <%= link_to "Activate", controller: :user_authentication, action: :edit, id: @user.activation_token, email: @user.email %>
-<%= link_to "Activate", controller: :user_authentication, action: :sign_in_form, id: @user.activation_token, email: @user.email %>
+<%= link_to "Activate", controller: :user_authentication, action: :sign_in_form %>
