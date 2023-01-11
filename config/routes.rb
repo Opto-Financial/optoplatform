@@ -359,7 +359,7 @@ Rails.application.routes.draw do
   post '/user_verify_credentials', to: 'user_authentication#create_cookie'
 
   # SIGN OUT
-  delete '/user_sign_out', to: 'user_authentication#destroy_cookies'
+  get '/user_sign_out', to: 'user_authentication#destroy_cookies'
 
   get 'authenticate_email', to: 'user_authentication#edit'
 end
