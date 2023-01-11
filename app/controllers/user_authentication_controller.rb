@@ -167,7 +167,6 @@ class UserAuthenticationController < ApplicationController
   end
  
   def edit
-    redirect_to("/user_sign_up")
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.update_attribute(:activated,    true)
@@ -177,7 +176,7 @@ class UserAuthenticationController < ApplicationController
       redirect_to("/")
     else
       flash[:danger] = "Invalid activation link"
-      redirect_to("/user_sign_up")
+      redirect_to("/user_sign_in")
     end
   end
 
