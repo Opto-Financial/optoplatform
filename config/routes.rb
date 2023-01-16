@@ -362,4 +362,10 @@ Rails.application.routes.draw do
   get '/user_sign_out', to: 'user_authentication#destroy_cookies'
 
   get 'authenticate_email', to: 'user_authentication#edit'
+
+  get 'password/reset', to: "user_authentication#new_reset"
+  post 'password/reset', to: "user_authentication#create_reset"
+  get 'password/reset/edit', to: "user_authentication#edit_reset"
+  patch 'password/reset/edit', to: "user_authentication#update_reset"
+  
 end

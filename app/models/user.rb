@@ -221,6 +221,11 @@ class User < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  def send_pass_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  
   private
 
     # Converts email to all lowercase.

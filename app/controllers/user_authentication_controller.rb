@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit, :new_reset, :create_reset, :edit_reset, :update_reset] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -199,4 +199,45 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
+  def new_reset
+  end
+
+  def create_reset 
+    @user = User.find_by(email: params[:email])
+
+    if @user.present?
+      #send email
+      PasswordMailer.with(user: @user).reset.deliver_now
+    else
+    end
+
+    flash[:success] = "Password Reset email sent!"
+    redirect_to("/user_sign_in")
+  end
+
+  def edit_reset
+    @user = User.find_signed!(params[:token], purpose: "password_reset")
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    flash[:danger] = "Your link has expired. Please try again."
+    redirect_to("/user_sign_in")
+  end
+
+  def update_reset
+    @user = User.find_signed!(params[:token], purpose: "password_reset")
+    if @user.update(password_params)
+      flash[:success] = "Your password was reset successfully! Please sign in."
+      redirect_to("/user_sign_in")
+    else
+      flash[:danger] = "Your passwords don't match. Please try again."
+      render :edit
+    end
+  end
+  
+
+  private
+  
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 end
