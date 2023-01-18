@@ -11,18 +11,25 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
-    <link rel="stylesheet" href="./css/reset.css" />
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="../css/reset.css" />
 
+    <!-- Font CSS -->
+    <link rel="stylesheet" href="../fonts/mulish/style.css" />
+    <link rel="stylesheet" href="../fonts/inter/style.css" />
 
-    <link rel="stylesheet" href="fonts/mulish/style.css" />
-    <link rel="stylesheet" href="fonts/inter/style.css" />
+    <!-- Grid CSS -->
+    <link href="../css/grid.css" rel="stylesheet" media="screen" />
 
-  
-    <link href="css/grid.css" rel="stylesheet" media="screen" />
+    <!-- Custom CSS -->
+    <link href="../css/custom.css" rel="stylesheet" media="screen" />
 
- 
-    <link href="css/custom.css" rel="stylesheet" media="screen" />
-
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
 </head>
 <body>
     <section class="content-account">
@@ -32,7 +39,7 @@
             <div class="logo-lg"></div>
 
 
-            <%= form_with model: @user, url: password_reset_edit_url(token:params[:token]) do |form| %>
+            <%= form_with model: @user, url: password_edit_url(token:params[:token]) do |form| %>
                 <div class="well well-sm">
                     <h2 class="font700 text-center">Reset Your Password</h2>
 

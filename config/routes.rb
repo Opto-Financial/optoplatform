@@ -365,7 +365,7 @@ Rails.application.routes.draw do
 
   get 'password/reset', to: "user_authentication#new_reset"
   post 'password/reset', to: "user_authentication#create_reset"
-  get 'password/reset/edit', to: "user_authentication#edit_reset"
-  patch 'password/reset/edit', to: "user_authentication#update_reset"
+  get 'password/edit', to: "user_authentication#edit_reset"
+  patch 'password/edit', to: "user_authentication#update_reset"
   
 end
