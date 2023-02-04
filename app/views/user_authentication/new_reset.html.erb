@@ -39,20 +39,32 @@
         <div class="content-account-container">
 
             <div class="logo-lg"></div>
+            <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <% end %> 
 
             <%= form_with url: password_reset_path do |form| %>
-            <div class="well well-sm">
-              <h2 class="font700 text-center">Forgot your password?</h2>
-              <div class="form-group">
-                  <%= form.label :email, class: "form-label" %>
-                  <%= form.text_field :email, class: "form-control", placeholder: "Enter your email..." %>
+              <div class="well well-sm pb-0">
+                <h2 class="font700 text-center">Forgot your password?</h2>
+                <div class="form-group">
+                    <%= form.label :email, class: "form-label" %>
+                    <%= form.text_field :email, class: "form-control", placeholder: "Enter your email..." %>
+                </div>
+
+                <div>
+                  <%= form.submit "Send Password Reset Email", class: "btn btn-primary btn-block mb-10" %>
+                </div>
+
+                <div class="text-center mb-0">
+                  <a href="/" class="btn btn-link text-primary p-0">Home</a>
+                </div>
               </div>
 
-              <div>
-                <%= form.submit "Send Password Reset Email", class: "btn btn-primary btn-block mb-10" %>
-              </div>
-            </div>
+              
             <% end %>
+
+            
+
           
 
         </div>

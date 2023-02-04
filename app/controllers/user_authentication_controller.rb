@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit, :new_reset, :create_reset, :edit_reset, :update_reset] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :edit, :new_reset, :create_reset, :edit_reset, :update_reset, :password_edit_url] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -210,8 +210,8 @@ class UserAuthenticationController < ApplicationController
       flash[:info] = "Email sent with password reset instructions"
       redirect_to("/user_sign_in")
     else
-      flash.now[:danger] = "Email address not found"
-      render 'new'
+      flash[:danger] = "Email address not found"
+      redirect_to("/password/reset")
     end
   end
 
@@ -221,12 +221,17 @@ class UserAuthenticationController < ApplicationController
 
   def update_reset
     @user = User.find_by(email: params[:email])
-    if @user.update(user_params)
+    valid_user
+    check_expiration
+    if params[:user][:password].empty?
+      flash[:danger] = "Password field cannot be empty."
+      return password_edit_url
+    elsif @user.update(user_params)
       flash[:success] = "Your password was reset successfully! Please sign in."
-      redirect_to("/user_sign_in")
+      redirect_to("/user_sign_in") and return
     else
       flash[:danger] = "Your passwords don't match. Please try again."
-      render :edit
+      return password_edit_url
     end
   end
 
@@ -235,10 +240,17 @@ class UserAuthenticationController < ApplicationController
       params.require(:user).permit(:password, :password_confirmation)
     end
 
+    def valid_user
+      unless (@user && @user.activated? &&
+              @user.authenticated?(:reset, params[:id]))
+        redirect_to("/user_sign_in")
+      end
+    end
+
     def check_expiration
       if @user.password_reset_expired?
         flash[:danger] = "Password reset has expired."
-        redirect_to new_password_reset_url
+        redirect_to("/new_reset")
       end
     end
 
