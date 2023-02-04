@@ -22,6 +22,8 @@
 #  password_digest              :string
 #  plaid_items_count            :integer
 #  premba_industry              :string
+#  reset_digest                 :string
+#  reset_sent_at                :datetime
 #  school                       :string
 #  school_events_count          :integer
 #  spend_intentions_count       :integer

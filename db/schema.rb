@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_14_055946) do
+ActiveRecord::Schema.define(version: 2023_02_03_235840) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "account_type"
@@ -248,6 +248,8 @@ ActiveRecord::Schema.define(version: 2022_12_14_055946) do
     t.string "activation_digest"
     t.boolean "activated"
     t.datetime "activated_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
 end
