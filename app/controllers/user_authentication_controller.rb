@@ -202,4 +202,44 @@ class UserAuthenticationController < ApplicationController
   def new_reset
   end
 
+  def create_reset
+    @user = User.find_by(email: params[:email].downcase)
+    if @user
+      @user.create_reset_digest
+      @user.send_password_reset_email
+      flash[:info] = "Email sent with password reset instructions"
+      redirect_to("/user_sign_in")
+    else
+      flash.now[:danger] = "Email address not found"
+      render 'new'
+    end
+  end
+
+  def edit_reset 
+    @user = User.find_by(email: params[:email])
+  end
+
+  def update_reset
+    @user = User.find_by(email: params[:email])
+    if @user.update(user_params)
+      flash[:success] = "Your password was reset successfully! Please sign in."
+      redirect_to("/user_sign_in")
+    else
+      flash[:danger] = "Your passwords don't match. Please try again."
+      render :edit
+    end
+  end
+
+  private 
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
+
+    def check_expiration
+      if @user.password_reset_expired?
+        flash[:danger] = "Password reset has expired."
+        redirect_to new_password_reset_url
+      end
+    end
+
 end
