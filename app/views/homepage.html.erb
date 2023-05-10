@@ -75,8 +75,6 @@
                     <div class="row mb-30">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <h4 class="font300 mt-10">Please visit the Budgeting & Planning page to begin putting together your custom budget.</h4>
-                            
-                            <h4 class="font300 mt-10">In the meantime, you can take a look below to see the fees and optional events for your school that you may want to factor into your budget. You will be able to add these items to your budget directly on the Budgeting & Planning page.</h4>
                         </div>
                     </div>
 
@@ -181,9 +179,6 @@
                     </div>
                     <!-- ./row-->
 
-                    <h1 class="text-center font700 mb-0">Data for Your School</h1>
-                    <h2 class="text-center text-underline"><%= @current_user.school %></h2>
-
                     <div class="row mb-30">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <h4 class="text-center font300 mt-10">While the exact numbers or dates might vary year to year, here are some data to get you started with your budget so you can anticipate required and optional costs that are likely to come up (and add up!). When you’re ready, head over to the budget page to add them to your own budget.</h4>
@@ -211,63 +206,11 @@
                                         </thead>
                                         <tbody>
 
-                                            <%
-                                            school_fees_sort = SchoolFee.where({school: @current_user.school})
-
-                                            @list_of_school_fees = school_fees_sort.order({ :first_fee_date => :asc })
-
-                                            for a_school_fee in @list_of_school_fees do %>
-                                    
-                                                <tr>
-                                                <td><span class="font700 color-grey"><%= a_school_fee.fee_name %></span></td>
-                                                <td class="text-right"><span class="color-blue font700">$<%= number_with_delimiter(a_school_fee.fee_amount.truncate, :delimiter => ',') %></span></td>
-                                                <td class="text-right"><%= a_school_fee.first_fee_date.strftime("%b. %d") %></td>
-                                                </tr>
-
-                                            <%end%>
-
                                             <!--<tr>
                                             <td><span class="font700 color-grey">TOTAL:</span></td>
                                             <td class="text-right"><span class="color-blue font700">Coming Soon</span></td>                                        
                                             </tr>-->
 
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-12 col-lg-6 mb-20">
-                            <div class="well">
-                                <h2 class="font700">Optional School Events</h2>
-
-                                <div class="table-scroll">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-left">Event</th>
-                                                <th class="text-right">Avg. Cost</th>
-                                                <th class="text-right">Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <% 
-                                            school_events_sort = SchoolEvent.where({school: @current_user.school})
-
-                                            @list_of_school_events = school_events_sort.order({ :event_start_date => :asc })
-
-                                            for a_school_event in @list_of_school_events do %>
-                                            
-                                            <tr>
-                                                <td><span class="font700 color-grey"><%= a_school_event.event_name %>:</span></td>
-                                                <td class="text-right"><span class="color-blue font700">$<%= number_with_delimiter(a_school_event.estimated_cost.truncate, :delimiter => ',')
-                                                 %></span></td>
-                                                <td class="text-right"><%= a_school_event.event_start_date.strftime("%b. %d") %></td>
-                                            </tr>
-
-                                            <% end %>
-      
                                         </tbody>
                                     </table>
                                 </div>
