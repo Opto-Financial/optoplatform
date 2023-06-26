@@ -1,10 +1,10 @@
 class PlaidClient
 	def initialize
 		configuration = Plaid::Configuration.new
-		configuration.server_index = Plaid::Configuration::Environment["development"]
+		configuration.server_index = Plaid::Configuration::Environment["sandbox"]
 		# clientID and secrets to be moved to env variables
 		configuration.api_key["PLAID-CLIENT-ID"] = "62e9fc1a50f8030013968af0"
-    configuration.api_key["PLAID-SECRET"] = "20ba4d1adc601be89d9be88472a96d"
+    configuration.api_key["PLAID-SECRET"] = "e863c9a11046dec35f60ef08d7b4af"
 
 		api_client = Plaid::ApiClient.new(
 			configuration

@@ -7,6 +7,11 @@
 
 <hr>
 
+<body class="left-menu-hide">
+
+    <section class="content">
+        <div class="content-container">
+
 <div>
   <div>
     <h1>
@@ -24,9 +29,11 @@
           Account
         </th>
 
+        <!--
         <th scope="col">
           Trxn ID
         </th>
+        -->
 
         <th scope="col">
           Name plaid
@@ -89,13 +96,12 @@
 
         <th>
           Transaction subcategory plaid
-        </th>-->
+        </th>
 
         <th scope="col">
           Plaid Transaction ID
         </th>
 
-        <!--
         <th>
           Plaid Category ID
         </th>
@@ -128,9 +134,11 @@
           <%= a_transaction.account_id %>
         </td>
         
+        <!--
         <td>
           <%= a_transaction.id %>
         </td>
+        -->
 
         <td>
           <%= a_transaction.name_plaid %>
@@ -193,13 +201,12 @@
 
         <td>
           <%= a_transaction.transaction_subcategory_plaid %>
-        </td>-->
+        </td>
 
         <td>
           <%= a_transaction.plaid_transaction_id %>
         </td>
 
-        <!--
         <td>
           <%= a_transaction.plaid_category_id %>
         </td>
@@ -230,5 +237,19 @@
     </table>
   </div>
 </div>
+
+
+</div>
+
+    </section>
+    <!-- ./content-->
+
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+
+    <!-- Custom Script  -->
+    <script src="js/main.js"></script>
+
+</body>
 
 <hr>

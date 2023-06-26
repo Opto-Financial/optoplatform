@@ -1,6 +1,7 @@
 class PlaidItemsController < ApplicationController
   def index
-    matching_plaid_items = PlaidItem.all
+    #matching_plaid_items = PlaidItem.all
+    matching_plaid_items = PlaidItem.where({user_id: @current_user.id})
 
     @list_of_plaid_items = matching_plaid_items.order({ :created_at => :desc })
 

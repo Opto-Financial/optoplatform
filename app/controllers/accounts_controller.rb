@@ -1,12 +1,14 @@
 class AccountsController < ApplicationController
   def index
-    matching_accounts = Account.all
+    #matching_accounts = Account.all
+    matching_accounts = Account.where({user_id: @current_user.id})
 
     @list_of_accounts = matching_accounts.order({ :created_at => :desc })
 
     render({ :template => "accounts/index.html.erb" })
   end
 
+  
   def show
     the_id = params.fetch("path_id")
 

@@ -1,6 +1,6 @@
 class BankAccountsController < ApplicationController
   def index
-    matching_bank_accounts = BankAccount.all
+    matching_bank_accounts = BankAccount.where({user_id: @current_user.id})
 
     @list_of_bank_accounts = matching_bank_accounts.order({ :created_at => :desc })
 

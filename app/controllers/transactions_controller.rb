@@ -1,12 +1,15 @@
 class TransactionsController < ApplicationController
   def index
     matching_transactions = Transaction.all
+    #matching_transactions = Transaction.where({user_id: @current_user.id})
+    #Need to update the line above so that it searches for account_Id's that match the current user ID since transactions ladder up to accounts, which ladder up to users
 
     @list_of_transactions = matching_transactions.order({ :created_at => :desc })
 
     render({ :template => "transactions/index.html.erb" })
   end
 
+  
   def show
     the_id = params.fetch("path_id")
 

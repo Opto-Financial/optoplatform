@@ -1,11 +1,12 @@
 class BudgetIncomesController < ApplicationController
   def index
-    matching_budget_incomes = BudgetIncome.all
+    matching_budget_incomes = BudgetIncome.where({user_id: @current_user.id})
 
     @list_of_budget_incomes = matching_budget_incomes.order({ :created_at => :desc })
 
     render({ :template => "budget_incomes/index.html.erb" })
   end
+  
 
   def show
     the_id = params.fetch("path_id")

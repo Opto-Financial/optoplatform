@@ -1,11 +1,13 @@
 class CurrentLoansController < ApplicationController
   def index
-    matching_current_loans = CurrentLoan.all
+    #matching_current_loans = CurrentLoan.all
+    matching_current_loans = CurrentLoan.where({user_id: @current_user.id})
 
     @list_of_current_loans = matching_current_loans.order({ :created_at => :desc })
 
     render({ :template => "current_loans/index.html.erb" })
   end
+
 
   def show
     the_id = params.fetch("path_id")

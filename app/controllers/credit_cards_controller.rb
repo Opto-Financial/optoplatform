@@ -1,11 +1,13 @@
 class CreditCardsController < ApplicationController
   def index
-    matching_credit_cards = CreditCard.all
+    #matching_credit_cards = CreditCard.all
+    matching_credit_cards = CreditCard.where({user_id: @current_user.id})
 
     @list_of_credit_cards = matching_credit_cards.order({ :created_at => :desc })
 
     render({ :template => "credit_cards/index.html.erb" })
   end
+
 
   def show
     the_id = params.fetch("path_id")
