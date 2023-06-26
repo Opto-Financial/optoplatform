@@ -71,44 +71,6 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the School event payment resource:
-
-  # CREATE
-  post("/insert_school_event_payment", { :controller => "school_event_payments", :action => "create" })
-          
-  # READ
-  get("/school_event_payments", { :controller => "school_event_payments", :action => "index" })
-  
-  get("/school_event_payments/:path_id", { :controller => "school_event_payments", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_school_event_payment/:path_id", { :controller => "school_event_payments", :action => "update" })
-  
-  # DELETE
-  get("/delete_school_event_payment/:path_id", { :controller => "school_event_payments", :action => "destroy" })
-
-  #------------------------------
-
-  # Routes for the School fee resource:
-
-  # CREATE
-  post("/insert_school_fee", { :controller => "school_fees", :action => "create" })
-          
-  # READ
-  get("/school_fees", { :controller => "school_fees", :action => "index" })
-  
-  get("/school_fees/:path_id", { :controller => "school_fees", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_school_fee/:path_id", { :controller => "school_fees", :action => "update" })
-  
-  # DELETE
-  get("/delete_school_fee/:path_id", { :controller => "school_fees", :action => "destroy" })
-
-  #------------------------------
-
   # Routes for the Bank account resource:
 
   # CREATE
@@ -128,60 +90,22 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the Spend intention resource:
+  # Routes for the Spender Profile resource:
 
   # CREATE
-  post("/insert_spend_intention", { :controller => "spend_intentions", :action => "create" })
+  post("/insert_spender_profile", { :controller => "spender_profile", :action => "create" })
           
   # READ
-  get("/spend_intentions", { :controller => "spend_intentions", :action => "index" })
+  get("/spender_profile", { :controller => "spender_profile", :action => "index" })
   
-  get("/spend_intentions/:path_id", { :controller => "spend_intentions", :action => "show" })
+  get("/spender_profile/:path_id", { :controller => "spender_profile", :action => "show" })
   
   # UPDATE
   
-  post("/modify_spend_intention/:path_id", { :controller => "spend_intentions", :action => "update" })
+  post("/modify_spender_profile/:path_id", { :controller => "spender_profile", :action => "update" })
   
   # DELETE
-  get("/delete_spend_intention/:path_id", { :controller => "spend_intentions", :action => "destroy" })
-
-  #------------------------------
-
-  # Routes for the Loan disbursement resource:
-
-  # CREATE
-  post("/insert_loan_disbursement", { :controller => "loan_disbursements", :action => "create" })
-          
-  # READ
-  get("/loan_disbursements", { :controller => "loan_disbursements", :action => "index" })
-  
-  get("/loan_disbursements/:path_id", { :controller => "loan_disbursements", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_loan_disbursement/:path_id", { :controller => "loan_disbursements", :action => "update" })
-  
-  # DELETE
-  get("/delete_loan_disbursement/:path_id", { :controller => "loan_disbursements", :action => "destroy" })
-
-  #------------------------------
-
-  # Routes for the School event resource:
-
-  # CREATE
-  post("/insert_school_event", { :controller => "school_events", :action => "create" })
-          
-  # READ
-  get("/school_events", { :controller => "school_events", :action => "index" })
-  
-  get("/school_events/:path_id", { :controller => "school_events", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_school_event/:path_id", { :controller => "school_events", :action => "update" })
-  
-  # DELETE
-  get("/delete_school_event/:path_id", { :controller => "school_events", :action => "destroy" })
+  get("/delete_spender_profile/:path_id", { :controller => "spender_profile", :action => "destroy" })
 
   #------------------------------
 
@@ -201,25 +125,6 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_credit_card/:path_id", { :controller => "credit_cards", :action => "destroy" })
-
-  #------------------------------
-
-  # Routes for the Loan comparison resource:
-
-  # CREATE
-  post("/insert_loan_comparison", { :controller => "loan_comparisons", :action => "create" })
-          
-  # READ
-  get("/loan_comparisons", { :controller => "loan_comparisons", :action => "index" })
-  
-  get("/loan_comparisons/:path_id", { :controller => "loan_comparisons", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_loan_comparison/:path_id", { :controller => "loan_comparisons", :action => "update" })
-  
-  # DELETE
-  get("/delete_loan_comparison/:path_id", { :controller => "loan_comparisons", :action => "destroy" })
 
   #------------------------------
 
