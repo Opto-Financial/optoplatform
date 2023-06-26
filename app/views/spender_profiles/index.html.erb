@@ -10,7 +10,7 @@
 <div>
   <div>
     <h1>
-      List of all spend intentions
+      List of all spender profiles
     </h1>
   </div>
 </div>
@@ -20,10 +20,10 @@
 <div>
   <div>
     <h2>
-      Add a new spend intention
+      Add a new spender profile
     </h2>
 
-    <form action="/insert_spend_intention" method="post">
+    <form action="/insert_spender_profile" method="post">
       <div>
         <label for="user_id_box">
           User
@@ -33,15 +33,15 @@
       </div>
 
       <div>
-        <label for="spend_intention_box">
-          Spend intention
+        <label for="spender_profile_box">
+          Spender Profile
         </label>
 
-        <textarea id="spend_intention_box" name="query_spend_intention" rows="3"></textarea>
+        <textarea id="spender_profile_box" name="query_spender_profile" rows="3"></textarea>
       </div>
 
       <button>
-        Create spend intention
+        Create spender profile
       </button>
     </form>
   </div>
@@ -61,7 +61,7 @@
         </th>
 
         <th>
-          Spend intention
+          Spender profile
         </th>
 
         <th>
@@ -76,29 +76,29 @@
         </th>
       </tr>
 
-      <% @list_of_spend_intentions.each do |a_spend_intention| %>
+      <% @list_of_spender_profiles.each do |a_spender_profile| %>
       <tr>
         <td>
-          <%= a_spend_intention.id %>
+          <%= a_spender_profile.id %>
         </td>
 
         <td>
-          <%= a_spend_intention.user_id %>
+          <%= a_spender_profile.user_id %>
         </td>
 
         <td>
-          <%= a_spend_intention.spend_intention %>
+          <%= a_spender_profile.spender_profile %>
         </td>
 
         <td>
-          <%= time_ago_in_words(a_spend_intention.created_at) %> ago
+          <%= time_ago_in_words(a_spender_profile.created_at) %> ago
         </td>
         <td>
-          <%= time_ago_in_words(a_spend_intention.updated_at) %> ago
+          <%= time_ago_in_words(a_spender_profile.updated_at) %> ago
         </td>
 
         <td>
-          <a href="/spend_intentions/<%= a_spend_intention.id %>">
+          <a href="/spender_profiles/<%= a_spender_profile.id %>">
             Show details
           </a>
         </td>

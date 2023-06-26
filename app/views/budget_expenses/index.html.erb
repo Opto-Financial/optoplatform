@@ -47,13 +47,14 @@
     <section class="content">
         <div class="content-container">
 
-            <div class="row">
+            <div class="row mb-30">
+                <div class="col-xs-12 col-md-9 col-lg-9">
+                    <p class="mt-10">To start creating your budget, click on the Expenses and Incomes sections below. Then, when you have added a few items, click "Load Chart" to see them reflected there.</p>
+                </div>
                 
                 <div class="text-right mt-10 col-xs-12 col-md-3 col-lg-3">
                   <a class="btn btn-primary modal-open" data-modal="getStartedInstructions">Other Tips</a>
                 </div>
-
-              </div>
             </div>
 
             <div class="row">
@@ -61,13 +62,13 @@
                     <div class="well well-xs mb-20">
 
                         <div class="accordion-total">
-                            <h3 class="accordion-total-title">Total Budget<span>$<%= number_with_delimiter(BudgetExpense.where({user_id: @current_user.id}).where.not(expense_amount: nil).sum(:expense_amount).truncate, :delimiter => ',') %></span></h3>
+                            <h3 class="accordion-total-title">Expenses<span>$<%= number_with_delimiter(BudgetExpense.where({user_id: @current_user.id}).where.not(expense_amount: nil).sum(:expense_amount).truncate, :delimiter => ',') %></span></h3>
                         </div>
 
                         <div class="accordion">
                             <h3 class="accordion-title">
                                 <span class="accordion-icon"></span>
-                                Budget Items
+                                Expense Items
                                 <span class="accordion-no">$<%= number_with_delimiter(BudgetExpense.where({user_id: @current_user.id}).where.not({expense_category_id: "38"}).where.not({expense_category_id: "43"}).where.not(expense_amount: nil).sum(:expense_amount).truncate, :delimiter => ',') %></span>
                             </h3>
 
@@ -272,7 +273,7 @@
                         <div class="accordion">
                             <h3 class="accordion-title">
                                 <span class="accordion-icon"></span>
-                                All Income
+                                Income Items
                                 <span class="accordion-no">$<%= number_with_delimiter(BudgetIncome.where({user_id: @current_user.id}).where.not(income_amount: nil).sum(:income_amount).truncate, :delimiter => ',') %></span>
                             </h3>
 
