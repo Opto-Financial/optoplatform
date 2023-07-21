@@ -221,22 +221,42 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the Transaction category resource:
+  # Routes for the Transaction Category Default resource:
 
   # CREATE
-  post("/insert_transaction_category", { :controller => "transaction_categories", :action => "create" })
+  post("/insert_transaction_category_default", { :controller => "transaction_categories_defaults", :action => "create" })
           
   # READ
-  get("/transaction_categories", { :controller => "transaction_categories", :action => "index" })
+  get("/transaction_categories_defaults", { :controller => "transaction_categories_defaults", :action => "index" })
   
-  get("/transaction_categories/:path_id", { :controller => "transaction_categories", :action => "show" })
+  get("/transaction_categories_defaults/:path_id", { :controller => "transaction_categories_defaults", :action => "show" })
   
   # UPDATE
   
-  post("/modify_transaction_category/:path_id", { :controller => "transaction_categories", :action => "update" })
+  post("/modify_transaction_category_default/:path_id", { :controller => "transaction_categories_defaults", :action => "update" })
   
   # DELETE
-  get("/delete_transaction_category/:path_id", { :controller => "transaction_categories", :action => "destroy" })
+  get("/delete_transaction_category_default/:path_id", { :controller => "transaction_categories_defaults", :action => "destroy" })
+
+#------------------------------
+
+  # Routes for the Transaction Category Default resource:
+
+  # CREATE
+  post("/insert_transaction_category_user", { :controller => "transaction_categories_users", :action => "create" })
+          
+  # READ
+  get("/transaction_categories_users", { :controller => "transaction_categories_users", :action => "index" })
+  
+  get("/transaction_categories_users/:path_id", { :controller => "transaction_categories_users", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_transaction_category_user/:path_id", { :controller => "transaction_categories_users", :action => "update" })
+  
+  # DELETE
+  get("/delete_transaction_category_user/:path_id", { :controller => "transaction_categories_users", :action => "destroy" })
+
 
   #------------------------------
 

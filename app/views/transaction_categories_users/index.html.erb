@@ -23,7 +23,7 @@
       Add a new transaction category
     </h2>
 
-    <form action="/insert_transaction_category" method="post">
+    <form action="/insert_transaction_category_user" method="post">
       <div>
         <label for="spend_category_name_box">
           Spend category name
@@ -100,7 +100,7 @@
         </th>
       </tr>
 
-      <% @list_of_transaction_categories.each do |a_transaction_category| %>
+      <% @list_of_transaction_categories_users.each do |a_transaction_category| %>
       <tr>
         <td>
           <%= a_transaction_category.id %>
@@ -130,7 +130,7 @@
         </td>
 
         <td>
-          <a href="/transaction_categories/<%= a_transaction_category.id %>">
+          <a href="/transaction_categories_users/<%= a_transaction_category.id %>">
             Show details
           </a>
         </td>

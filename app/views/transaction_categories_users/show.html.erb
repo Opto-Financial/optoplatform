@@ -10,18 +10,18 @@
 <div>
   <div>
     <h1>
-      Transaction category #<%= @the_transaction_category.id %> details
+      Transaction category #<%= @the_transaction_category_user.id %> details
     </h1>
 
     <div>
       <div>
-        <a href="/transaction_categories">
+        <a href="/transaction_categories_users">
           Go back
         </a>
       </div>
 
       <div>
-        <a href="/delete_transaction_category/<%= @the_transaction_category.id %>">
+        <a href="/delete_transaction_category_user/<%= @the_transaction_category_user.id %>">
           Delete transaction category
         </a>
       </div>
@@ -32,42 +32,42 @@
         Spend category name
       </dt>
       <dd>
-        <%= @the_transaction_category.spend_category_name %>
+        <%= @the_transaction_category_user.spend_category_name %>
       </dd>
 
       <dt>
         User
       </dt>
       <dd>
-        <%= @the_transaction_category.user_id %>
+        <%= @the_transaction_category_user.user_id %>
       </dd>
 
       <dt>
         Spend sub category
       </dt>
       <dd>
-        <%= @the_transaction_category.spend_sub_category %>
+        <%= @the_transaction_category_user.spend_sub_category %>
       </dd>
 
       <dt>
         Spend sub category details
       </dt>
       <dd>
-        <%= @the_transaction_category.spend_sub_category_details %>
+        <%= @the_transaction_category_user.spend_sub_category_details %>
       </dd>
 
       <dt>
         Created at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_transaction_category.created_at) %> ago
+        <%= time_ago_in_words(@the_transaction_category_user.created_at) %> ago
       </dd>
 
       <dt>
         Updated at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_transaction_category.updated_at) %> ago
+        <%= time_ago_in_words(@the_transaction_category_user.updated_at) %> ago
       </dd>
     </dl>
   </div>
@@ -82,13 +82,13 @@
       Edit transaction category
     </h2>
 
-    <form action="/modify_transaction_category/<%= @the_transaction_category.id %>"  method="post" >
+    <form action="/modify_transaction_category_user/<%= @the_transaction_category_user.id %>"  method="post" >
       <div>
         <label for="spend_category_name_box">
           Spend category name
         </label>
 
-        <input type="text" id="spend_category_name_box" name="query_spend_category_name" value="<%= @the_transaction_category.spend_category_name %>">
+        <input type="text" id="spend_category_name_box" name="query_spend_category_name" value="<%= @the_transaction_category_user.spend_category_name %>">
       </div>
 
       <div>
@@ -96,7 +96,7 @@
           User
         </label>
 
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_transaction_category.user_id %>">
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_transaction_category_user.user_id %>">
       </div>
 
       <div>
@@ -104,7 +104,7 @@
           Spend sub category
         </label>
 
-        <input type="text" id="spend_sub_category_box" name="query_spend_sub_category" value="<%= @the_transaction_category.spend_sub_category %>">
+        <input type="text" id="spend_sub_category_box" name="query_spend_sub_category" value="<%= @the_transaction_category_user.spend_sub_category %>">
       </div>
 
       <div>
@@ -112,7 +112,7 @@
           Spend sub category details
         </label>
 
-        <textarea id="spend_sub_category_details_box" name="query_spend_sub_category_details"><%= @the_transaction_category.spend_sub_category_details %></textarea>
+        <textarea id="spend_sub_category_details_box" name="query_spend_sub_category_details"><%= @the_transaction_category_user.spend_sub_category_details %></textarea>
       </div>
 
       <button>

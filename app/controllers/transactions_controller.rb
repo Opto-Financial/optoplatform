@@ -1,9 +1,11 @@
 class TransactionsController < ApplicationController
   def index
-    matching_transactions = Transaction.all
-    #matching_transactions = Transaction.where({user_id: @current_user.id})
-    #Need to update the line above so that it searches for account_Id's that match the current user ID since transactions ladder up to accounts, which ladder up to users
+    #matching_transactions = Transaction.all
 
+    matching_accounts = Account.select("id").where({user_id: @current_user.id})
+
+    matching_transactions = Transaction.where({account_id: matching_accounts})
+         
     @list_of_transactions = matching_transactions.order({ :created_at => :desc })
 
     render({ :template => "transactions/index.html.erb" })
@@ -27,7 +29,8 @@ class TransactionsController < ApplicationController
     the_transaction.transaction_datetime = params.fetch("query_transaction_datetime")
     the_transaction.recurring_frequency = params.fetch("query_recurring_frequency")
     the_transaction.recurring_end_date = params.fetch("query_recurring_end_date")
-    the_transaction.spend_category_id = params.fetch("query_spend_category_id")
+    the_transaction.spend_category_id_default = params.fetch("query_spend_category_id_default")
+    the_transaction.spend_category_id_user = params.fetch("query_spend_category_id_user")
     the_transaction.income_flag = params.fetch("query_income_flag", false)
     the_transaction.recurring_flag = params.fetch("query_recurring_flag", false)
     the_transaction.iso_currency_code = params.fetch("query_iso_currency_code")
@@ -60,7 +63,8 @@ class TransactionsController < ApplicationController
     the_transaction.transaction_datetime = params.fetch("query_transaction_datetime")
     the_transaction.recurring_frequency = params.fetch("query_recurring_frequency")
     the_transaction.recurring_end_date = params.fetch("query_recurring_end_date")
-    the_transaction.spend_category_id = params.fetch("query_spend_category_id")
+    the_transaction.spend_category_id_default = params.fetch("query_spend_category_id_default")
+    the_transaction.spend_category_id_user = params.fetch("query_spend_category_id_user")
     the_transaction.income_flag = params.fetch("query_income_flag", false)
     the_transaction.recurring_flag = params.fetch("query_recurring_flag", false)
     the_transaction.iso_currency_code = params.fetch("query_iso_currency_code")

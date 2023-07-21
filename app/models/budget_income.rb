@@ -2,19 +2,20 @@
 #
 # Table name: budget_incomes
 #
-#  id                    :integer          not null, primary key
-#  first_recurrence_date :date
-#  income_amount         :float
-#  income_name           :string
-#  recurring_frequency   :integer
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  income_category_id    :integer
-#  user_id               :integer
+#  id                         :integer          not null, primary key
+#  first_recurrence_date      :date
+#  income_amount              :float
+#  income_category_id_default :integer
+#  income_category_id_user    :integer
+#  income_name                :string
+#  recurring_frequency        :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  user_id                    :integer
 #
 class BudgetIncome < ApplicationRecord
   belongs_to(:user, { :required => true, :class_name => "User", :foreign_key => "user_id", :counter_cache => true })
-  belongs_to(:income_category, { :required => true, :class_name => "TransactionCategory", :foreign_key => "income_category_id" })
+  belongs_to(:income_category, { :required => true, :class_name => "TransactionCategoriesDefault", :foreign_key => "income_category_id_default" })
 
   scope :by_month, -> (year, month_name = '') {
       month              = Date::MONTHNAMES.index(month_name.capitalize)

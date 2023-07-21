@@ -1,0 +1,110 @@
+<header class="header">
+  <div class="header-container">
+    <a href="/home" class="logo"></a>
+    <%= render "shared/navbar" %>
+  </div>
+</header>
+
+<hr>
+
+<div>
+  <div>
+    <h1>
+      Transaction category #<%= @the_transaction_category_default.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/transaction_categories_defaults">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_transaction_category_default/<%= @the_transaction_category_default.id %>">
+          Delete transaction category
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Spend category name
+      </dt>
+      <dd>
+        <%= @the_transaction_category_default.spend_category_name %>
+      </dd>
+
+      <dt>
+        Spend sub category
+      </dt>
+      <dd>
+        <%= @the_transaction_category_default.spend_sub_category %>
+      </dd>
+
+      <dt>
+        Spend sub category details
+      </dt>
+      <dd>
+        <%= @the_transaction_category_default.spend_sub_category_details %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_transaction_category_default.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_transaction_category_default.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit transaction category
+    </h2>
+
+    <form action="/modify_transaction_category_default/<%= @the_transaction_category_default.id %>"  method="post" >
+      <div>
+        <label for="spend_category_name_box">
+          Spend category name
+        </label>
+
+        <input type="text" id="spend_category_name_box" name="query_spend_category_name" value="<%= @the_transaction_category_default.spend_category_name %>">
+      </div>
+
+      <div>
+        <label for="spend_sub_category_box">
+          Spend sub category
+        </label>
+
+        <input type="text" id="spend_sub_category_box" name="query_spend_sub_category" value="<%= @the_transaction_category_default.spend_sub_category %>">
+      </div>
+
+      <div>
+        <label for="spend_sub_category_details_box">
+          Spend sub category details
+        </label>
+
+        <textarea id="spend_sub_category_details_box" name="query_spend_sub_category_details"><%= @the_transaction_category_default.spend_sub_category_details %></textarea>
+      </div>
+
+      <button>
+        Update transaction category
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

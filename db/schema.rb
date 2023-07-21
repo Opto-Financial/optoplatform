@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_235840) do
+ActiveRecord::Schema.define(version: 2023_07_21_201041) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "account_type"
@@ -43,23 +43,25 @@ ActiveRecord::Schema.define(version: 2023_02_03_235840) do
   create_table "budget_expenses", force: :cascade do |t|
     t.string "expense_name"
     t.float "expense_amount"
-    t.integer "expense_category_id"
+    t.integer "expense_category_id_default"
     t.integer "recurring_frequency"
     t.integer "user_id"
     t.date "first_recurrence_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "expense_category_id_user"
   end
 
   create_table "budget_incomes", force: :cascade do |t|
     t.string "income_name"
     t.float "income_amount"
-    t.integer "income_category_id"
+    t.integer "income_category_id_default"
     t.date "first_recurrence_date"
     t.integer "recurring_frequency"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "income_category_id_user"
   end
 
   create_table "cash_flows", force: :cascade do |t|
@@ -174,7 +176,15 @@ ActiveRecord::Schema.define(version: 2023_02_03_235840) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "transaction_categories", force: :cascade do |t|
+  create_table "transaction_categories_defaults", force: :cascade do |t|
+    t.string "spend_category_name"
+    t.string "spend_sub_category"
+    t.text "spend_sub_category_details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "transaction_categories_users", force: :cascade do |t|
     t.string "spend_category_name"
     t.integer "user_id"
     t.string "spend_sub_category"
@@ -189,7 +199,7 @@ ActiveRecord::Schema.define(version: 2023_02_03_235840) do
     t.datetime "transaction_datetime"
     t.integer "recurring_frequency"
     t.date "recurring_end_date"
-    t.integer "spend_category_id"
+    t.integer "spend_category_id_default"
     t.boolean "income_flag"
     t.boolean "recurring_flag"
     t.text "iso_currency_code"
@@ -199,13 +209,14 @@ ActiveRecord::Schema.define(version: 2023_02_03_235840) do
     t.datetime "authorized_datetime"
     t.string "transaction_location"
     t.text "transaction_subcategory_plaid"
-    t.bigint "account_id"
+    t.integer "account_id"
     t.text "plaid_transaction_id"
     t.text "plaid_category_id"
     t.text "type_plaid"
     t.boolean "pending"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "spend_category_id_user"
   end
 
   create_table "user_budgets", force: :cascade do |t|

@@ -1,0 +1,135 @@
+<header class="header">
+  <div class="header-container">
+    <a href="/home" class="logo"></a>
+    <%= render "shared/navbar" %>
+  </div>
+</header>
+
+<hr>
+
+<div>
+  <div>
+    <h1>
+      List of all transaction categories
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new transaction category
+    </h2>
+
+    <form action="/insert_transaction_category_default" method="post">
+      <div>
+        <label for="spend_category_name_box">
+          Spend category name
+        </label>
+
+        <input type="text" id="spend_category_name_box" name="query_spend_category_name">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="spend_sub_category_box">
+          Spend sub category
+        </label>
+
+        <input type="text" id="spend_sub_category_box" name="query_spend_sub_category">
+      </div>
+
+      <div>
+        <label for="spend_sub_category_details_box">
+          Spend sub category details
+        </label>
+
+        <textarea id="spend_sub_category_details_box" name="query_spend_sub_category_details" rows="3"></textarea>
+      </div>
+
+      <button>
+        Create transaction category
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Spend category name
+        </th>
+
+        <th>
+          Spend sub category
+        </th>
+
+        <th>
+          Spend sub category details
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_transaction_categories_defaults.each do |a_transaction_category| %>
+      <tr>
+        <td>
+          <%= a_transaction_category.id %>
+        </td>
+
+        <td>
+          <%= a_transaction_category.spend_category_name %>
+        </td>
+
+        <td>
+          <%= a_transaction_category.spend_sub_category %>
+        </td>
+
+        <td>
+          <%= a_transaction_category.spend_sub_category_details %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_transaction_category.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_transaction_category.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/transaction_categories_defaults/<%= a_transaction_category.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

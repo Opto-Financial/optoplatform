@@ -22,7 +22,8 @@ class BudgetIncomesController < ApplicationController
     the_budget_income = BudgetIncome.new
     the_budget_income.income_name = params.fetch("query_income_name")
     the_budget_income.income_amount = params.fetch("query_income_amount")
-    the_budget_income.income_category_id = params.fetch("query_income_category_id")
+    the_budget_income.income_category_id_default = params.fetch("query_income_category_id_default", nil)
+    the_budget_income.income_category_id_user = params.fetch("query_income_category_id_user", nil)
     the_budget_income.first_recurrence_date = params.fetch("query_first_recurrence_date")
     the_budget_income.recurring_frequency = params.fetch("query_recurring_frequency")
     the_budget_income.user_id = params.fetch("query_user_id")
@@ -45,7 +46,7 @@ class BudgetIncomesController < ApplicationController
 
         @count_of_weeks.floor.times do
 
-          BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id => the_budget_income.income_category_id, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 1.weeks))
+          BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id_default => the_budget_income.income_category_id_default, :income_category_id_user => the_budget_income.income_category_id_user, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 1.weeks))
 
           UserBudget.where({user_id: @current_user.id}).where("first_day_of_month <= ?", (@starting_date + 1.weeks)).where("last_day_of_month >= ?", (@starting_date + 1.weeks)).first.update(:total_income=> BudgetIncome.where({user_id: @current_user.id}).by_month((@starting_date + 1.weeks).year, (@starting_date + 1.weeks).strftime("%B")).sum(:income_amount))
 
@@ -66,7 +67,7 @@ class BudgetIncomesController < ApplicationController
 
         @count_of_biweeklies.floor.times do
 
-          BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id => the_budget_income.income_category_id, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 2.weeks))
+          BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id_default => the_budget_income.income_category_id_default, :income_category_id_user => the_budget_income.income_category_id_user, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 2.weeks))
 
           UserBudget.where({user_id: @current_user.id}).where("first_day_of_month <= ?", (@starting_date + 2.weeks)).where("last_day_of_month >= ?", (@starting_date + 2.weeks)).first.update(:total_income=> BudgetIncome.where({user_id: @current_user.id}).by_month((@starting_date + 2.weeks).year, (@starting_date + 2.weeks).strftime("%B")).sum(:income_amount))
 
@@ -87,7 +88,7 @@ class BudgetIncomesController < ApplicationController
 
           @count_of_months.times do
 
-            BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id => the_budget_income.income_category_id, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 1.months))
+            BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id_default => the_budget_income.income_category_id_default, :income_category_id_user => the_budget_income.income_category_id_user, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 1.months))
 
             UserBudget.where({user_id: @current_user.id}).where("first_day_of_month <= ?", (@starting_date + 1.months)).where("last_day_of_month >= ?", (@starting_date + 1.months)).first.update(:total_income=> BudgetIncome.where({user_id: @current_user.id}).by_month((@starting_date + 1.months).year, (@starting_date + 1.months).strftime("%B")).sum(:income_amount))
 
@@ -108,7 +109,7 @@ class BudgetIncomesController < ApplicationController
 
           @count_of_quarters.floor.times do
 
-            BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id => the_budget_income.income_category_id, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 3.months))
+            BudgetIncome.create(:income_name => the_budget_income.income_name,:income_amount =>the_budget_income.income_amount,:income_category_id_default => the_budget_income.income_category_id_default, :income_category_id_user => the_budget_income.income_category_id_user, :recurring_frequency => the_budget_income.recurring_frequency, :user_id => the_budget_income.user_id, :first_recurrence_date => (@starting_date + 3.months))
 
             UserBudget.where({user_id: @current_user.id}).where("first_day_of_month <= ?", (@starting_date + 3.months)).where("last_day_of_month >= ?", (@starting_date + 3.months)).first.update(:total_income=> BudgetIncome.where({user_id: @current_user.id}).by_month((@starting_date + 3.months).year, (@starting_date + 3.months).strftime("%B")).sum(:income_amount))
 
@@ -156,10 +157,16 @@ class BudgetIncomesController < ApplicationController
     the_budget_income.income_name = params.fetch("query_income_name")
     the_budget_income.income_amount = params.fetch("query_income_amount")
     #the_budget_income.income_category_id = params.fetch("query_income_category_id")
-    the_budget_income.income_category_id =
-    (if params.fetch("query_income_category_id") == "Select One"
-      the_budget_income.income_category_id = the_budget_income.income_category_id
-    else the_budget_income.income_category_id = params.fetch("query_income_category_id")
+    
+    the_budget_income.income_category_id_default =
+    (if params.fetch("query_income_category_id_default") == "Select One"
+      the_budget_income.income_category_id_default = the_budget_income.income_category_id_default
+    else the_budget_income.income_category_id_default = params.fetch("query_income_category_id_default", nil)
+    end)
+    the_budget_income.income_category_id_user =
+    (if params.fetch("query_income_category_id_user") == "Select One"
+      the_budget_income.income_category_id_user = the_budget_income.income_category_id_user
+    else the_budget_income.income_category_id_user = params.fetch("query_income_category_id_user", nil)
     end)
     the_budget_income.first_recurrence_date = params.fetch("query_first_recurrence_date")
     #the_budget_income.recurring_frequency = params.fetch("query_recurring_frequency")

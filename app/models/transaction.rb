@@ -13,6 +13,8 @@
 #  recurring_end_date            :date
 #  recurring_flag                :boolean
 #  recurring_frequency           :integer
+#  spend_category_id_default     :integer
+#  spend_category_id_user        :integer
 #  transaction_amount            :float
 #  transaction_category_plaid    :text
 #  transaction_datetime          :datetime
@@ -21,10 +23,9 @@
 #  type_plaid                    :text
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
-#  account_id                    :bigint
+#  account_id                    :integer
 #  plaid_category_id             :text
 #  plaid_transaction_id          :text
-#  spend_category_id             :integer
 #
 class Transaction < ApplicationRecord
   # belongs_to(:spend_category, { :required => true, :class_name => "TransactionCategory", :foreign_key => "spend_category_id" })
