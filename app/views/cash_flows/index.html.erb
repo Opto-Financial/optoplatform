@@ -88,7 +88,7 @@
                                 <row>
                                 <h2 class="font700 col-md-6 col-lg-6">Cash Burn Rate</h2>
                                 <div class="col-xs-12 col-md-6 col-lg-6 text-right">
-                                    <% matching_cash_flows = CashFlow.where({user_id: @current_user.id}).where("first_day_of_week >= ?", "2022-10-23").where.not(remaining_cash: nil)
+                                    <% matching_cash_flows = CashFlow.where({user_id: @current_user.id}).where("first_day_of_week >= ?", "2023-07-23").where.not(remaining_cash: nil)
                                     @list_of_cash_flows = matching_cash_flows.order({ :created_at => :asc })%>
 
                                     <a class="btn btn-primary" onclick="updateConfigByMutating(cashBurnRateChart,<%= @list_of_cash_flows.all.map {|p| p.first_day_of_week.strftime('%b. %d')}.first(10) %>,<%= @list_of_cash_flows.all.map {|p| p.remaining_cash}.first(10)%>)">Load Chart</a>
@@ -108,11 +108,11 @@
 
                                         <div class="text-right mt-20">
                                         
-                                        <form action="/modify_cash_flow/<%=CashFlow.where({user_id: @current_user.id}).where("first_day_of_week = ?", "2022-10-23").pluck(:id).first%>" method="post">
+                                        <form action="/modify_cash_flow/<%=CashFlow.where({user_id: @current_user.id}).where("first_day_of_week = ?", "2023-07-23").pluck(:id).first%>" method="post">
 
-                                            <input type="hidden" name="query_first_day_of_week" value="2022-10-23">
+                                            <input type="hidden" name="query_first_day_of_week" value="2023-07-23">
 
-                                            <input type="hidden" name="query_last_day_of_week" value="2022-10-29">
+                                            <input type="hidden" name="query_last_day_of_week" value="2023-07-29">
                                                                                         
                                             <div class="col-xs-12 col-sm-2">
                                             <p><span class="show-xs font700"></span>
@@ -159,7 +159,7 @@
                                         <p class="text-upper color-grey small">Starting budget:</p>
                                     </div>
                                     <div class="col-xs-5 col-sm-6">
-                                        <p class="color-blue font700 text-right small"><%=number_with_delimiter(CashFlow.where({user_id: @current_user.id}).where("first_day_of_week = ?", "2022-10-23").pluck(:remaining_cash).first.truncate, :delimiter => ',')%></p>
+                                        <p class="color-blue font700 text-right small"><%=number_with_delimiter(CashFlow.where({user_id: @current_user.id}).where("first_day_of_week = ?", "2023-07-23").pluck(:remaining_cash).first.truncate, :delimiter => ',')%></p>
                                     </div>
 
                                 </div>
@@ -232,7 +232,7 @@
 
                                         <tbody>
 
-                                            <% for a_cash_flow in @list_of_cash_flows.where("first_day_of_week >= ?", "2022-10-23").where("last_day_of_week <= ?", "2022-12-31").where.not(remaining_cash: nil) do %>
+                                            <% for a_cash_flow in @list_of_cash_flows.where("first_day_of_week >= ?", "2023-07-23").where("last_day_of_week <= ?", "2023-09-30").where.not(remaining_cash: nil) do %>
                                     
                                                 <tr>
                                                 <td class="text-left"><%= a_cash_flow.first_day_of_week.strftime("%b. %d") %></td>
