@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_21_201041) do
+ActiveRecord::Schema.define(version: 2023_07_25_030408) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "account_type"
@@ -223,9 +223,6 @@ ActiveRecord::Schema.define(version: 2023_07_21_201041) do
     t.integer "user_id"
     t.date "first_day_of_month"
     t.date "last_day_of_month"
-    t.float "non_school_expenses"
-    t.float "required_school_expenses"
-    t.float "optional_school_expenses"
     t.float "total_expenses"
     t.float "total_income"
     t.datetime "created_at", precision: 6, null: false

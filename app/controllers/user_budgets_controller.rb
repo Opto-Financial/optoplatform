@@ -24,9 +24,6 @@ class UserBudgetsController < ApplicationController
     the_user_budget.user_id = params.fetch("query_user_id")
     the_user_budget.first_day_of_month = params.fetch("query_first_day_of_month")
     the_user_budget.last_day_of_month = params.fetch("query_last_day_of_month")
-    the_user_budget.non_school_expenses = params.fetch("query_non_school_expenses")
-    the_user_budget.required_school_expenses = params.fetch("query_required_school_expenses")
-    the_user_budget.optional_school_expenses = params.fetch("query_optional_school_expenses")
     the_user_budget.total_expenses = params.fetch("query_total_expenses")
     the_user_budget.total_income = params.fetch("query_total_income")
 
@@ -46,9 +43,6 @@ class UserBudgetsController < ApplicationController
     the_user_budget.user_id = @current_user.id
     the_user_budget.first_day_of_month = params.fetch("query_first_day_of_month")
     the_user_budget.last_day_of_month = params.fetch("query_last_day_of_month")
-    the_user_budget.non_school_expenses = params.fetch("query_non_school_expenses")
-    the_user_budget.required_school_expenses = params.fetch("query_required_school_expenses")
-    the_user_budget.optional_school_expenses = params.fetch("query_optional_school_expenses")
     the_user_budget.total_expenses = params.fetch("query_total_expenses")
     the_user_budget.total_income = params.fetch("query_total_income")
 
